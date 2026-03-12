@@ -44,6 +44,7 @@ header {
     position: sticky;
     top: 0px;
     background-color: var(--color-bg);
+    z-index: 5;
 }
 
 .products {
