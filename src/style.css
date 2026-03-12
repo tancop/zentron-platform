@@ -70,6 +70,10 @@ header {
     margin: 0;
 }
 
+.card:hover > .product-name {
+    text-decoration: underline;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .card:hover {
         scale: 105%;
