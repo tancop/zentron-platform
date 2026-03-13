@@ -62,9 +62,10 @@ button[popovertarget] {
 
 #popover-categories {
     width: fit-content;
-    height: fit-content;
+    height: 0px;
     margin: unset;
 
+    position: sticky;
     top: calc(anchor(bottom) + 0.9rem);
     justify-self: anchor-center;
 
@@ -74,6 +75,7 @@ button[popovertarget] {
 
     visibility: hidden;
     &:popover-open {
+        height: fit-content;
         visibility: visible;
     }
 }
