@@ -63,12 +63,19 @@ button[popovertarget] {
 #popover-categories {
     width: fit-content;
     height: fit-content;
-    margin: 0;
+    margin: unset;
 
-    position: fixed;
-    position-anchor: --btn-categories;
-    top: calc(anchor(bottom) + 1rem);
+    top: calc(anchor(bottom) + 0.9rem);
     justify-self: anchor-center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    visibility: hidden;
+    &:popover-open {
+        visibility: visible;
+    }
 }
 
 .products {
