@@ -222,12 +222,14 @@ button[popovertarget] {
     margin: 0;
 }
 
-.card:hover > .product-name {
+.card:hover > .product-name,
+.card:focus > .product-name {
     text-decoration: underline;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .card:hover {
+    .card:hover,
+    .card:focus {
         scale: 105%;
         transition: scale 0.1s ease-in-out;
     }
