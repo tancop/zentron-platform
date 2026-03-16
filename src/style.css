@@ -245,8 +245,9 @@ button[popovertarget] {
 }
 
 .deal-image {
+    flex-shrink: 1;
+    flex-grow: 1;
     height: 100%;
-    width: 50%;
     background-color: var(--color-alt);
 }
 
