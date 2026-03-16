@@ -295,6 +295,20 @@ button[popovertarget] {
     gap: 1rem;
 }
 
+.register-social {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.register-social > .register-btn {
+    width: min(20rem, 100%);
+}
+
+.register-social > .register-help {
+    width: min(22rem, 100%);
+}
+
 .register-social > h2,
 .register-form-wrap > h2 {
     margin: 0;
