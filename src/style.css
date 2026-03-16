@@ -151,10 +151,6 @@ header {
 button[popovertarget] {
     background: none;
     border: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
 }
 
 .dropdown {
@@ -191,6 +187,11 @@ button[popovertarget] {
     font-weight: 500;
     color: var(--color-text);
     text-decoration: none;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
 }
 
 .products {
