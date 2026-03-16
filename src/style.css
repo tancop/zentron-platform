@@ -516,5 +516,40 @@ button[popovertarget] {
 @media (max-width: 40rem) {
     .footer-grid {
         grid-template-columns: 1fr;
+.mobile-nav {
+    position: fixed;
+    bottom: 0;
+
+    height: 3rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-top: 1px solid var(--color-alt);
+    background-color: var(--color-bg);
+}
+
+.mobile-nav > a {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-right: 1px solid var(--color-alt);
+}
+
+@media (aspect-ratio <= 2/3) {
+    .no-mobile {
+        display: none;
+    }
+}
+
+@media (aspect-ratio > 2/3) {
+    .mobile-only {
+        display: none;
     }
 }
