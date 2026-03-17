@@ -509,6 +509,9 @@ button[popovertarget] {
 @media (max-width: 40rem) {
     .footer-grid {
         grid-template-columns: 1fr;
+    }
+}
+
 .mobile-nav {
     position: fixed;
     bottom: 0;
