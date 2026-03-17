@@ -10,10 +10,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "serve": "tsc && vite build && vite preview"
+    "serve": "vite build && vite preview"
   },
   "type": "module",
   "dependencies": {
+    "@types/node": "^25.5.0",
     "modern-normalize": "^3.0.1"
   }
 }
