@@ -92,6 +92,12 @@ header {
     height: 2rem;
 }
 
+@media (width > 70rem) {
+    .search-box {
+        border-block: none;
+    }
+}
+
 .search-box > input {
     border: none;
     outline: none;
