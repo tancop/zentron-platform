@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\OrderStatus;
 use App\Http\Requests\UpdateCartAmountRequest;
 use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
