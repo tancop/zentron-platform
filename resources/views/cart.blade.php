@@ -4,6 +4,7 @@
     <x-meta-tags title="cart"/>
     @vite('resources/css/style.css')
     @vite('resources/css/cart.css')
+    @vite('resources/js/cart-amount.ts')
 </head>
 
 <body>
