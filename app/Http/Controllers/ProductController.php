@@ -127,6 +127,7 @@ class ProductController extends Controller
             'create' => true,
             'brands' => $brands,
             'categories' => $categories,
+            'minImages' => 2,
         ]);
     }
 
