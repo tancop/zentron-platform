@@ -86,8 +86,6 @@ class Product extends Model implements HasMedia
             "price" => "decimal:2",
             "description" => "string",
             "color" => "string",
-            "image_url_primary" => "string",
-            "image_url_secondary" => "string",
         ];
     }
 
