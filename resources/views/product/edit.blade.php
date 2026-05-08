@@ -8,6 +8,7 @@
     @vite('resources/css/product.css')
     @vite('resources/css/product-edit.css')
     @vite('resources/js/edit-product-categories.ts')
+    @vite('resources/js/product-image-count.ts')
 </head>
 
 <body class="admin-page">
@@ -81,13 +82,13 @@
             <p class="field-error">{{ $message }}</p>
             @enderror
         </div>
-        <div class="field-row file-upload">
+        <div class="field-row file-upload" data-current-images="{{ $create ? 0 : $currentImageCount }}" data-min-images="{{ $minImages ?? 2}}">
             @if ($create)
                 <label for="images">Images</label>
             @else
                 <label for="images">Add images</label>
             @endif
-            <p>
+            <p class="hint" id="image-count-feedback">
                 At least 2 product images required
                 @if (!$create)
                     <br>
