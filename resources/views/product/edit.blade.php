@@ -87,6 +87,20 @@
             @else
                 <label for="images">Add images</label>
             @endif
+            <p>
+                At least 2 product images required
+                @if (!$create)
+                    <br>
+                    <em>Current: {{$currentImageCount}} image(s)</em>
+                    @if ($imagesNeeded > 0)
+                        <br>
+                        <em>You need {{$imagesNeeded}} more image(s)</em>
+                    @else
+                        <br>
+                        <em>Minimum requirement met.</em>
+                    @endif
+                @endif
+            </p>
             <input
                 id="images"
                 name="images[]"
