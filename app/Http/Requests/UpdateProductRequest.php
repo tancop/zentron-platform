@@ -29,9 +29,9 @@ class UpdateProductRequest extends FormRequest
             'price' => 'required|numeric',
             'color' => 'nullable|string',
             'brand_id' => 'nullable|exists:Brand,id',
+            'images' => 'nullable|array',
             'images.*' => [
-                'nullable',
-                File::types(['jpeg', 'png', 'avif', 'webp'])
+                File::types(['jpg', 'jpeg', 'png', 'avif', 'webp'])
             ],
         ];
     }
