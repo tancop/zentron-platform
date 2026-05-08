@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Http\Requests\UpdateCartAmountRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -33,12 +34,9 @@ class CartController extends Controller
         ]);
     }
 
-    public function setAmount(Request $request): \Illuminate\Http\RedirectResponse
+    public function setAmount(UpdateCartAmountRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $validated = $request->validate([
-            'id' => 'required|integer|exists:Product,id',
-            'amount' => 'required|integer|min:1',
-        ]);
+        $validated = $request->validated();
         /* @var $id int */
         $id = $validated['id'];
         /* @var $amount int */
