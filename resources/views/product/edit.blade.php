@@ -83,7 +83,7 @@
         </div>
         <div class="field-row file-upload">
             @if ($create)
-                <label for="images">Main image</label>
+                <label for="images">Images</label>
             @else
                 <label for="images">Add images</label>
             @endif
@@ -93,26 +93,15 @@
                 type="file"
                 accept="image/png, image/jpeg, image/webp, image/avif"
                 multiple
+                {{ $create ? 'required' : '' }}
             />
+            @error('images')
+            <p class="field-error">{{ $message }}</p>
+            @enderror
             @error('images.*')
             <p class="field-error">{{ $message }}</p>
             @enderror
         </div>
-
-        @if ($create)
-            <div class="field-row file-upload">
-                <label for="image">Secondary image</label>
-                <input
-                    id="image"
-                    name="image2"
-                    type="file"
-                    accept="image/png, image/jpeg, image/webp, image/avif"
-                />
-                @error('image')
-                <p class="field-error">{{ $message }}</p>
-                @enderror
-            </div>
-        @endif
 
         <section>
             <h2>Categories</h2>
