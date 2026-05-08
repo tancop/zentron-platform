@@ -29,13 +29,10 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric',
             'color' => 'nullable|string',
             'brand_id' => 'nullable|exists:Brand,id',
-            'image' => [
+            'images' => 'required|array|min:2',
+            'images.*' => [
                 'required',
-                File::types(['jpeg', 'png', 'avif', 'webp'])
-            ],
-            'image2' => [
-                'required',
-                File::types(['jpeg', 'png', 'avif', 'webp'])
+                File::types(['jpg', 'jpeg', 'png', 'avif', 'webp'])
             ],
         ];
     }
