@@ -28,6 +28,20 @@
     font-weight: 600;
 }
 
+.hint {
+    margin: 0;
+    color: var(--color-text-dim, hsl(0, 0%, 35%));
+    font-size: 0.875rem;
+    line-height: 1.4;
+
+    &>em {
+        font-style: italic;
+    }
+    &>strong {
+        font-weight: 700;
+    }
+}
+
 .form-errors {
     color: red;
 }
