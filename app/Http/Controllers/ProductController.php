@@ -88,6 +88,11 @@ class ProductController extends Controller
 
     public function create(\App\Http\Requests\StoreProductRequest $request): \Illuminate\Http\RedirectResponse
     {
+        $imageValidation = $this->validateProductImages($request);
+        if (!$imageValidation['valid']) {
+            return back()->withErrors(['images' => $imageValidation['message']]);
+        }
+
         $validated = $request->safe()->except(['images']);
 
         $product = Product::create($validated);
