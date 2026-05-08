@@ -11,7 +11,7 @@ if (fileInput && feedback && uploadRow) {
         const totalImages = currentImages + selectedImages;
         const remainingImages = Math.max(0, (minImages-totalImages));
 
-        feedback.innerHTML = 'Selected: <strong>${selectedImages}</strong> image(s). ' + 'Total after upload: <strong>${totalImages}</strong> / ${minImages}.' + (remainingImages > 0? ' You need ${remainingImages} more image(s).':'Minimum requirement met.');
+        feedback.innerHTML = `Selected: <strong>${selectedImages}</strong> image(s). ` + `Total after upload: <strong>${totalImages}</strong> / ${minImages}.` + (remainingImages > 0? ` You need <strong>${remainingImages}</strong> more image(s).`:`Minimum requirement met.`);
     };
 
     fileInput.addEventListener("change", updateFeedback);
