@@ -138,6 +138,18 @@ class ProductController extends Controller
 
     public function update(Product $product, \App\Http\Requests\UpdateProductRequest $request): \Illuminate\Http\RedirectResponse
     {
+        $currentImageCount = $product->getMedia('images')->count();
+        $newImageCount = 0;
+
+        if ($request->hasFile('images')) {
+            $newImageCount = count(array_filter($request->file('images')));
+        }
+
+        $totalImages = $currentImageCount + $newImageCount;
+        if ($totalImages < 2) {
+            return back()->withErrors(['images' => "Product requires at least 2 images total. Current: {$currentImageCount}| Added: {$newImageCount}."]);
+        }
+
         $validated = $request->safe()->except(['images']);
 
         if ($request->hasFile('images')) {
@@ -164,12 +176,18 @@ class ProductController extends Controller
     {
         $brands = Brand::all();
         $categories = Category::all();
+        $currentImageCount = $product->getMedia('images')->count();
+        $minImages = 2;
+        $imagesNeeded = max(0, $minImages - $currentImageCount);
 
         return view('product.edit', [
             'create' => false,
             'product' => $product->load('brand'),
             'brands' => $brands,
             'categories' => $categories,
+            'currentImageCount' => $currentImageCount,
+            'minImages' => $minImages,
+            'imagesNeeded' => $imagesNeeded,
         ]);
     }
 
