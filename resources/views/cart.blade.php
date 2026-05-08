@@ -43,7 +43,7 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ $product->id }}"/>
                             <input class="item-amount" type="number" name="amount" size="2"
-                                   value="{{ $amounts[$product->id] }}"/>
+                                value="{{ $amounts[$product->id] }}" min="1"/>
                             <input type="submit" hidden>
                         </form>
                         <form method="post" action="/cart/setAmount">

@@ -45,7 +45,7 @@
                 @csrf
                 <input type="hidden" name="id" value="{{ $product->id }}"/>
                 <button type="button" id="amount-minus" class="cart-btn">-</button>
-                <input class="amount-field" id="amount-field" type="number" name="amount" value="1"/>
+                <input class="amount-field" id="amount-field" type="number" name="amount" value="1" min="1"/>
                 <button type="button" id="amount-plus" class="cart-btn">+</button>
                 <div class="cart-row-spacer" aria-hidden="true"></div>
                 <button type="submit" class="cart-btn">Add to cart</button>
