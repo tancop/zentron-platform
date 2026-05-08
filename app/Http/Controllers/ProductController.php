@@ -204,4 +204,29 @@ class ProductController extends Controller
 
         return redirect()->back();
     }
+
+    function validateProductImages(Request $request): array
+    {
+        if (!$request->hasFile('images')) {
+            return [
+                'valid' => false,
+                'message' => 'At least 2 product images are required!!'
+            ];
+        }
+
+        $images = $request->file('images');
+        $imageCount = is_array($images) ? count(array_filter($images)) : 1;
+
+        if ($imageCount < 2) {
+            return [
+                'valid' => false,
+                'message' => "Product requires at least 2 images. You provided {$imageCount}!"
+            ];
+        }
+
+        return [
+            'valid' => true,
+            'message' => 'Image validation passed!'
+        ];
+    }
 }
