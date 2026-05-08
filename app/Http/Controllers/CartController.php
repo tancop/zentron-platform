@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateCartAmountRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CartController extends Controller
@@ -32,7 +33,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function setAmount(UpdateCartAmountRequest $request): \Illuminate\Http\RedirectResponse
+    public function setAmount(UpdateCartAmountRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         /* @var $id int */
@@ -50,7 +51,7 @@ class CartController extends Controller
         return redirect()->route('cart');
     }
 
-    public function remove(Request $request): \Illuminate\Http\RedirectResponse
+    public function remove(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'id' => 'required|integer|exists:Product,id',

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Http\Requests\UpdateCheckoutDetailsRequest;
 use App\Models\DeliveryType;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CheckoutController extends Controller
@@ -55,7 +57,7 @@ class CheckoutController extends Controller
         return view('checkout.complete', ['order' => $order]);
     }
 
-    public function confirm(Request $request): \Illuminate\Http\RedirectResponse
+    public function confirm(Request $request): RedirectResponse
     {
         $order = Order::getCurrentOrder($request);
         $order->status = OrderStatus::Confirmed;
@@ -64,7 +66,7 @@ class CheckoutController extends Controller
         return redirect(route('checkout.payment'));
     }
 
-    public function acceptPayment(Request $request): \Illuminate\Http\RedirectResponse
+    public function acceptPayment(Request $request): RedirectResponse
     {
         $order = Order::getCurrentOrder($request);
         $order->status = OrderStatus::Paid;
@@ -80,7 +82,7 @@ class CheckoutController extends Controller
         return redirect(route('checkout.complete'));
     }
 
-    public function setDetails(\App\Http\Requests\UpdateCheckoutDetailsRequest $request): \Illuminate\Http\RedirectResponse
+    public function setDetails(UpdateCheckoutDetailsRequest $request): RedirectResponse
     {
         $order = Order::getCurrentOrder($request);
         $validated = $request->validated();
