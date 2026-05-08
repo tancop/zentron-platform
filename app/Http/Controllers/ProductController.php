@@ -88,25 +88,23 @@ class ProductController extends Controller
 
     public function create(\App\Http\Requests\StoreProductRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $validated = $request->safe()->except(['image', 'image2']);
+        $validated = $request->safe()->except(['images']);
 
         $product = Product::create($validated);
 
         $categories = $this->getCheckedCategories($request);
         $product->categories()->sync($categories);
 
-        try {
-            $product->addMediaFromRequest('image')
-                ->toMediaCollection('images');
-        } catch (FileDoesNotExist|FileIsTooBig $e) {
-            Log::error($e);
-        }
-
-        try {
-            $product->addMediaFromRequest('image2')
-                ->toMediaCollection('images');
-        } catch (FileDoesNotExist|FileIsTooBig $e) {
-            Log::error($e);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                if ($image !== null) {
+                    try {
+                        $product->addMedia($image)->toMediaCollection('images');
+                    } catch (FileDoesNotExist|FileIsTooBig $e) {
+                        Log::error($e);
+                    }
+                }
+            }
         }
 
         return redirect('/product/' . $product->id);
