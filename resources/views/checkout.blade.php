@@ -17,11 +17,9 @@
     @if (auth()->guest())
         <section
             class="guest-signin-card"
-            aria-label="Guest checkout sign-in option"
-        >
+            aria-label="Guest checkout sign-in option">
             <p>
-                Checking out as guest. Want to keep this order in your
-                account?
+                Checking out as guest. Want to keep this order in your account?
             </p>
             <div class="checkout-link guest-signin-link">
                 <a href="/login">Sign in and continue checkout</a>
@@ -31,6 +29,7 @@
 
     <form class="checkout-layout" method="post"
           action="{{$isReview ? '/checkout/confirm' : '/checkout/setDetails'}}">
+        @csrf
         @php
             $selectedDeliveryMethod = old('delivery-method', $order->delivery_type_id ?? ($deliveryMethods->first()?->id));
             $selectedCountry = old('country', $order->country ?: 'SK');
