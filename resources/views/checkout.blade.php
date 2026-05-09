@@ -31,6 +31,10 @@
 
     <form class="checkout-layout" method="post"
           action="{{$isReview ? '/checkout/confirm' : '/checkout/setDetails'}}">
+        @php
+            $selectedDeliveryMethod = old('delivery-method', $order->delivery_type_id ?? ($deliveryMethods->first()?->id));
+            $selectedCountry = old('country', $order->country ?: 'SK');
+        @endphp
         <section class="checkout-form-box" aria-label="Customer form">
             <fieldset {{ $isReview ? 'disabled' : '' }}>
                 <h2>Customer details</h2>
@@ -93,9 +97,9 @@
 
                     <label for="country">Country</label>
                     <select id="country" name="country">
-                        <option value="SK">Slovakia</option>
-                        <option value="CZ">Czech Republic</option>
-                        <option value="AT">Austria</option>
+                        <option value="SK" @selected($selectedCountry === 'SK')>Slovakia</option>
+                        <option value="CZ" @selected($selectedCountry === 'CZ')>Czech Republic</option>
+                        <option value="AT" @selected($selectedCountry === 'AT')>Austria</option>
                     </select>
 
                     <div class="field-row">
@@ -128,9 +132,7 @@
                                     type="radio"
                                     name="delivery-method"
                                     value="{{ $option->id }}"
-                                    @if ($loop->index == 0)
-                                        checked
-                                    @endif
+                                    @checked((string) $selectedDeliveryMethod === (string) $option->id)
                                 />
                                 <span>{{ $option->name }}</span>
                                 <span>{{ $option->price }} €</span>
