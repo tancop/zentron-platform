@@ -25,6 +25,9 @@
 
 <section class="filter-bar" aria-label="List controls">
     <form class="catalog-controls" action="#" method="get">
+        @if(request()->query('q'))
+            <input type="hidden" name="q" value="{{ request()->query('q') }}" />
+        @endif
         <div>
             <label for="sort-order-category">Sort by</label>
             <select id="sort-order-category" name="sort-order">
