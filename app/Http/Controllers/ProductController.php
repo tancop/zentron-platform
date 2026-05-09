@@ -147,7 +147,7 @@ class ProductController extends Controller
 
         $totalImages = $currentImageCount + $newImageCount;
         if ($totalImages < 2) {
-            return back()->withErrors(['images' => "Product requires at least 2 images total. Current: {$currentImageCount}| Added: {$newImageCount}."]);
+            return back()->withErrors(['images' => "Product requires at least 2 images total. Current: {$currentImageCount} | Added: {$newImageCount}."]);
         }
 
         $validated = $request->safe()->except(['images']);
