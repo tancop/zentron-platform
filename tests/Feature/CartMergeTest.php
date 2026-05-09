@@ -98,6 +98,11 @@ test('merges guest cart into existing user cart on login and sums amounts for sa
 
     $user->refresh();
     $finalOrder = $user->currentOrder;
+    expect(Session::has('orderId'))->toBeFalse();
+    expect(Order::find($guestOrder->id))->toBeNull();
+    expect($finalOrder->id)->toBe($userOrder->id);
+    expect($user->current_order_id)->toBe($userOrder->id);
+
     expect($finalOrder->products->count())->toBe(2);
 
     $pivot1 = $finalOrder->products()->where('product_id', $product1->id)->first()->pivot;
