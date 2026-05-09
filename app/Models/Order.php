@@ -90,8 +90,7 @@ class Order extends Model
     public function totalPrice(): float
     {
         $this->load('deliveryType');
-        return $this->total_amount
-        + $this->deliveryType?->price ?? 0;
+        return $this->total_amount + ($this->deliveryType?->price ?? 0);
     }
 
     /**
