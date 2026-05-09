@@ -73,35 +73,45 @@ class DatabaseSeeder extends Seeder
             ['id' => 15, 'name' => 'Xbox One Wireless Controller - White', 'price' => '49.99', 'color' => 'White', 'brand_id' => 3, 'description' => 'Control your games from the other side of your home. Batteries not included.', 'categories' => [3, 6]],
             ['id' => 16, 'name' => 'Grand Theft Auto V (PS5)', 'price' => '31.99', 'color' => null, 'brand_id' => 8, 'description' => 'New trailer for GTA 6? Story mode DLC? Nah all we got is oppressors and shark cards.', 'categories' => [3, 7]],
         ];
-        foreach ($products as $product) {
+
+        /* @var $productCategories int[][] */
+        $productCategories = [];
+
+        foreach ($products as $idx => $product) {
             $product['created_at'] = now();
             $product['updated_at'] = now();
+
+            $productCategories[$product['id']] = $product['categories'];
+            unset($products[$idx]['categories']);
         }
+
+        Log::info("products", ['products' => $products]);
         Product::insert($products);
 
-        foreach ($products as $product) {
-            if (!empty($product['categories'])) {
-                Product::find($product['id'])?->categories()->attach($product['categories']);
+        foreach ($productCategories as $productId => $list) {
+            $product = Product::find($productId);
+            foreach ($list as $category) {
+                $product->categories()->attach($category);
             }
         }
 
         $images = [
-            ['id' => 1, 'path' => 'public/storage/24/MSX0052b11-01.webp'],
-            ['id' => 2, 'path' => 'public/storage/21/000003385510_0.webp'],
-            ['id' => 3, 'path' => 'public/storage/18/103375_original_local_1200x1050_v3_converted.webp'],
-            ['id' => 4, 'path' => 'public/storage/22/5DUP600301-600-600.webp'],
-            ['id' => 5, 'path' => 'public/storage/4/er-ps5.webp'],
-            ['id' => 5, 'path' => 'public/storage/6/er-gameplay.jpg'],
-            ['id' => 6, 'path' => 'public/storage/11/D5EW000501-600-600.webp'],
-            ['id' => 8, 'path' => 'public/storage/20/881aeaef-e37e-4bb6-b260-2e2f1093610d.avif'],
-            ['id' => 9, 'path' => 'public/storage/14/1.JBL_Wave_Vibe_-Buds_Product-Image_Hero_Black.webp'],
-            ['id' => 10, 'path' => 'public/storage/17/qq892.jpg'],
-            ['id' => 11, 'path' => 'public/storage/10/g102.webp'],
-            ['id' => 12, 'path' => 'public/storage/19/32648522-6598f51b6653a.jpg'],
-            ['id' => 13, 'path' => 'public/storage/23/290202_or.jpg'],
-            ['id' => 15, 'path' => 'public/storage/12/MXO008b17.webp'],
-            ['id' => 15, 'path' => 'public/storage/13/D5EW000501-600-600.webp'],
-            ['id' => 16, 'path' => 'public/storage/15/gta-ps5.webp'],
+            ['id' => 1, 'path' => 'MSX0052b11-01.webp'],
+            ['id' => 2, 'path' => '000003385510_0.webp'],
+            ['id' => 3, 'path' => '103375_original_local_1200x1050_v3_converted.webp'],
+            ['id' => 4, 'path' => '5DUP600301-600-600.webp'],
+            ['id' => 5, 'path' => 'er-ps5.webp'],
+            ['id' => 5, 'path' => 'er-gameplay.jpg'],
+            ['id' => 6, 'path' => 'D5EW000501-600-600.webp'],
+            ['id' => 8, 'path' => '881aeaef-e37e-4bb6-b260-2e2f1093610d.avif'],
+            ['id' => 9, 'path' => '1.JBL_Wave_Vibe_-Buds_Product-Image_Hero_Black.webp'],
+            ['id' => 10, 'path' => 'qq892.jpg'],
+            ['id' => 11, 'path' => 'g102.webp'],
+            ['id' => 12, 'path' => '32648522-6598f51b6653a.jpg'],
+            ['id' => 13, 'path' => '290202_or.jpg'],
+            ['id' => 15, 'path' => 'MXO008b17.webp'],
+            ['id' => 15, 'path' => 'D5EW000501-600-600.webp'],
+            ['id' => 16, 'path' => 'gta-ps5.webp'],
         ];
 
         foreach ($images as $image) {
@@ -109,7 +119,9 @@ class DatabaseSeeder extends Seeder
 
             if ($product) {
                 try {
-                    $product->addMedia($image['path'])->toMediaCollection('images');
+                    $product->addMedia('resources/images/seed/' . $image['path'])
+                        ->preservingOriginal()
+                        ->toMediaCollection('images');
                 } catch (FileDoesNotExist|FileIsTooBig $e) {
                     Log::error($e);
                 }

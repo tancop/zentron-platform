@@ -50,6 +50,7 @@
         "seed": [
             "@php artisan storage:link",
             "@php artisan db:wipe",
+            "@php artisan migrate --force",
             "@php artisan db:seed",
             "@php artisan media-library:regenerate"
         ],
