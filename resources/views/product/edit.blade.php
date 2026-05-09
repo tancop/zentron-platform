@@ -110,12 +110,16 @@
                 multiple
                 {{ $create ? 'required' : '' }}
             />
-            @error('images')
-            <p class="field-error">{{ $message }}</p>
-            @enderror
-            @error('images.*')
-            <p class="field-error">{{ $message }}</p>
-            @enderror
+            @if ($errors->has('images'))
+                <div class="field-error-container">
+                    @error('images')
+                        <p class="field-error">{{ $message }}</p>
+                    @enderror
+                    @error('images.*')
+                        <p class="field-error">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
         </div>
 
         <section>

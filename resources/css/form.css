@@ -28,6 +28,21 @@
     font-weight: 600;
 }
 
+.field-error-container {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background-color: hsl(1, 75%, 96%);
+    border-left: 3px solid hsl(1, 62%, 45%);
+    border-radius: 2px;
+
+    & > .field-error {
+        margin: 0;
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
 .hint {
     margin: 0;
     color: var(--color-text-dim, hsl(0, 0%, 35%));
