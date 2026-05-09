@@ -215,15 +215,20 @@ class ProductController extends Controller
         Gate::authorize('update', $product);
 
         $validated = $request->validate([
-            'id' => 'required|integer',
+            'id' => 'required|integer|exists:media,id',
         ]);
 
         $id = $validated['id'];
+        $media = $product->getMedia('images')->find($id);
+        if (!$media) {
+            return back()->withErrors(['id' => 'Image not found/does not belong to product']);
+        }
 
         try {
             $product->deleteMedia($id);
         } catch (MediaCannotBeDeleted $e) {
             Log::error($e);
+            return back()->withErrors(['images' => 'Could not delete image']);
         }
 
         return redirect()->back();
