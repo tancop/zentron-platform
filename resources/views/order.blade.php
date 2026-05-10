@@ -16,16 +16,16 @@
 
     <p class="order-status">
         @switch ($order->status)
-            @case(OrderStatus::InCart->value)
+            @case(OrderStatus::InCart)
                 🛒 In Cart
                 @break
-            @case(OrderStatus::Confirmed->value)
+            @case(OrderStatus::Confirmed)
                 ✅ Confirmed
                 @break
-            @case(OrderStatus::Paid->value)
+            @case(OrderStatus::Paid)
                 💸 Paid
                 @break
-            @case(OrderStatus::Shipped->value)
+            @case(OrderStatus::Shipped)
                 ✈️ Shipped
                 @break
             @default
