@@ -47,6 +47,13 @@
             "bun install",
             "bun run build"
         ],
+        "seed": [
+            "@php artisan storage:link",
+            "@php artisan db:wipe",
+            "@php artisan migrate --force",
+            "@php artisan db:seed",
+            "@php artisan media-library:regenerate"
+        ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "bunx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"bun run dev\" --names='server,queue,vite'"
