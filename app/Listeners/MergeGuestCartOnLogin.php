@@ -27,7 +27,7 @@ class MergeGuestCartOnLogin
         if ($orderId) {
             $guestOrder = Order::find($orderId);
             
-            if ($guestOrder && $guestOrder->status === OrderStatus::InCart->value) {
+            if ($guestOrder && $guestOrder->status === OrderStatus::InCart) {
                 $user = $event->user;
                 $userOrder = $user->currentOrder;
                 

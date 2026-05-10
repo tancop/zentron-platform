@@ -112,6 +112,7 @@ class Order extends Model
         return [
             "current_order_id" => "int",
             "total_amount" => "float",
+            "status" => \App\Enums\OrderStatus::class,
         ];
     }
 }
