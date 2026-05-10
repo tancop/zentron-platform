@@ -34,7 +34,7 @@ class Order extends Model
                     $order->total_amount = 0;
                     $order->save();
                     $request->session()->put("orderId", $order->id);
-                } elseif ($order->status !== OrderStatus::InCart) {
+                } elseif (! $order->status->isEditable()) {
                     $order = new Order;
                     $order->status = OrderStatus::InCart;
                     $order->total_amount = 0;
@@ -49,7 +49,7 @@ class Order extends Model
         } else {
             $user = auth()->user();
             $order = $user->currentOrder;
-            if ($order == null || $order->status !== OrderStatus::InCart) {
+            if ($order == null || ! $order->status->isEditable()) {
                 $order = new Order;
                 $order->status = OrderStatus::InCart;
                 $order->total_amount = 0;
