@@ -15,12 +15,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $products = Product::with('categories')->limit(10)->get();
-    $randomIds = Product::inRandomOrder()->limit(2)->pluck('id');
 
+    $promoDealId = Product::where('name', 'Retro Lava Lamp Set')->value('id');
+    $promoDiscountId = Product::where('name', 'Gaming PC Build - Storm')->value('id');
+
+    // Fallback
+    $randomIds = Product::inRandomOrder()->limit(2)->pluck('id');
+    
     return view('index', [
         'products' => $products,
-        'random_product_id_deals' => $randomIds[0] ?? null,
-        'random_product_id_discounts' => $randomIds[1] ?? null
+        'random_product_id_deals' => $promoDealId ?? ($randomIds[0] ?? null),
+        'random_product_id_discounts' => $promoDiscountId ?? ($randomIds[1] ?? null)
     ]);
 });
 

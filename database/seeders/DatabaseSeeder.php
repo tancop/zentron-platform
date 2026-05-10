@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Logitech'],
             ['name' => 'JBL'],
             ['name' => 'Rockstar Games'],
+            ['name' => 'Tubu']
         ];
         foreach ($brands as $brand) {
             $brand['created_at'] = now();
@@ -62,24 +63,6 @@ class DatabaseSeeder extends Seeder
         }
 
         $products = [
-            [
-                'name' => 'Retro Lava Lamp Set',
-                'price' => '24.99',
-                'color' => 'Multi',
-                'brand_id' => 7,
-                'description' => 'A pair of retro lava lamps to add ambient lighting and a vintage vibe to any desk or shelf.',
-                'categories' => [8],
-                'images' => ['lavaLamps.jpg'],
-            ],
-            [
-                'name' => 'Gaming PC Build - Storm',
-                'price' => '1299.99',
-                'color' => 'Black',
-                'brand_id' => 5,
-                'description' => 'Preconfigured performance rig with the latest GPU and cooling for high-frame-rate gaming.',
-                'categories' => [3,5],
-                'images' => ['gamingPCai.jpg'],
-            ],
             [
                 'name' => 'PlayStation 5 - White',
                 'price' => '499.99',
@@ -162,6 +145,24 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Made for PlayStation 5. Also supports PC and Mac. Features include: haptic feedback, adaptive triggers and stick drift. A lot of stick drift.',
                 'categories' => [3, 6],
                 'images' => ['qq892.jpg'],
+            ],
+            [
+                'name' => 'Retro Lava Lamp Set',
+                'price' => '24.99',
+                'color' => 'Multi',
+                'brand_id' => 9,
+                'description' => 'A pair of retro lava lamps to add ambient lighting and a vintage vibe to any desk or shelf.',
+                'categories' => [8],
+                'images' => ['lavaLamps.jpg'],
+            ],
+            [
+                'name' => 'Gaming PC Build - Storm',
+                'price' => '1299.99',
+                'color' => 'Black',
+                'brand_id' => 5,
+                'description' => 'Preconfigured performance rig with the latest GPU and cooling for high-frame-rate gaming.',
+                'categories' => [3,5],
+                'images' => ['gamingPCai.jpg'],
             ],
             [
                 'name' => 'Logitech G 102',
