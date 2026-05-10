@@ -27,7 +27,14 @@ class Order extends Model
                 $request->session()->put("orderId", $order->id);
             } else {
                 $order = Order::find($orderId);
-                if ($order->status !== OrderStatus::InCart) {
+
+                if ($order === null) {
+                    $order = new Order;
+                    $order->status = OrderStatus::InCart;
+                    $order->total_amount = 0;
+                    $order->save();
+                    $request->session()->put("orderId", $order->id);
+                } elseif ($order->status !== OrderStatus::InCart) {
                     $order = new Order;
                     $order->status = OrderStatus::InCart;
                     $order->total_amount = 0;
