@@ -157,12 +157,25 @@ class ProductController extends Controller
         $validated = $request->safe()->except(['images']);
 
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
+            $imagesToAdd = array_filter($request->file('images'));
+            Log::info('ProductUpdate: Adding images', [
+                'product_id' => $product->id,
+                'image_count' => count($imagesToAdd),
+                'current_media_count' => $currentImageCount,
+                'total_after' => $totalImages
+            ]);
+            
+            foreach ($request->file('images') as $idx => $image) {
                 if ($image !== null) {
                     try {
+                        Log::debug("Adding image $idx", ['filename' => $image->getClientOriginalName()]);
                         $product->addMedia($image)->toMediaCollection('images');
-                    } catch (FileDoesNotExist|FileIsTooBig $e) {
-                        Log::error($e);
+                    } catch (\Exception $e) {
+                        Log::error('Error adding image', [
+                            'product_id' => $product->id,
+                            'error' => $e->getMessage(),
+                            'type' => get_class($e)
+                        ]);
                     }
                 }
             }
@@ -221,6 +234,11 @@ class ProductController extends Controller
         $validated = $request->validate([
             'id' => 'required|integer|exists:media,id',
         ]);
+
+        $currentImageCount = $product->getMedia('images')->count();
+        if ($currentImageCount <= 2) {
+            return back()->withErrors(['images' => 'You need to keep at least 2 product images! Add more images before deleting.']);
+        }
 
         $id = $validated['id'];
         $media = $product->getMedia('images')->find($id);

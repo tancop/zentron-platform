@@ -169,7 +169,7 @@ class DatabaseSeeder extends Seeder
                 'price' => '19.99',
                 'color' => 'Black',
                 'brand_id' => 6,
-                'description' => 'Every broke boy\'s first real gaming mouse. Never breaks even if you throw it at a wall. Perfect for popping heads and screaming slurs on CS.',
+                'description' => 'Every broke boy\'s first real gaming mouse. Never breaks even if you throw it at a wall.',
                 'categories' => [3, 5],
                 'images' => ['g102.webp'],
             ],
