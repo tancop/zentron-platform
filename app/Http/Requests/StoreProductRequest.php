@@ -13,7 +13,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('create', \App\Models\Product::class);
+        return $this->user()?->can('create', \App\Models\Product::class) ?? false;
     }
 
     /**
