@@ -53,8 +53,9 @@ class CheckoutController extends Controller
 
     public function complete(Request $request): View
     {
-        $order = Order::getCurrentOrder($request);
-        return view('checkout.complete', ['order' => $order]);
+        $request->session()->pull('paidOrderId');
+
+        return view('checkout.complete');
     }
 
     public function confirm(Request $request): RedirectResponse
@@ -75,10 +76,13 @@ class CheckoutController extends Controller
         $user = auth()->user();
         if ($user) {
             // current order is complete, clear it out
+            $request->session()->put('paidOrderId', $order->id);
+
             $user->current_order_id = null;
             $user->save();
         } else {
             // clear guest order from session
+            $request->session()->put('paidOrderId', $order->id);
             $request->session()->forget('orderId');
         }
 
