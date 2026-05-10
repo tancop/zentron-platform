@@ -34,8 +34,12 @@ class ProductController extends Controller
             $avifUrls[] = $product->fallbackImageUrl();
         } else {
             foreach ($images as $image) {
-                $imageUrls[] = $image->getUrl('hero');
-                $avifUrls[] = $image->getUrl('hero-avif');
+                $heroUrl = $image->hasGeneratedConversion('hero') ? $image->getUrl('hero'):$image->getUrl();
+
+                $avifUrl = $image->hasGeneratedConversion('hero-avif') ? $image->getUrl('hero-avif'):$heroUrl;
+
+                $imageUrls[] = $heroUrl;
+                $avifUrls[] = $avifUrl;
             }
         }
 

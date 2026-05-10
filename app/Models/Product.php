@@ -56,6 +56,11 @@ class Product extends Model implements HasMedia
 
     public function previewUrlAvif(): string
     {
+        $media = $this->getFirstMedia('images');
+        if (!$media || !$media->hasGeneratedConversion('preview-avif')) {
+            return $this->previewUrl();
+        }
+
         $url = $this->getFirstMediaUrl('images', 'preview-avif');
         if ($url == '') {
             return $this->fallbackImageUrl();
@@ -109,18 +114,22 @@ class Product extends Model implements HasMedia
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
 
-        $this
-            ->addMediaConversion('preview-avif')
-            ->fit(Fit::Contain, 300, 300)
-            ->format('avif');
+        if (function_exists('imageavif')) {
+            $this
+                ->addMediaConversion('preview-avif')
+                ->fit(Fit::Contain, 300, 300)
+                ->format('avif');
+        }
 
         $this
             ->addMediaConversion('hero')
             ->fit(Fit::Contain, 600, 600);
 
-        $this
-            ->addMediaConversion('hero-avif')
-            ->fit(Fit::Contain, 600, 600)
-            ->format('avif');
+        if (function_exists('imageavif')) {
+            $this
+                ->addMediaConversion('hero-avif')
+                ->fit(Fit::Contain, 600, 600)
+                ->format('avif');
+        }
     }
 }

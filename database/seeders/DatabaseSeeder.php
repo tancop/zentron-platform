@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
                 'price' => '229.99',
                 'color' => null,
                 'brand_id' => 1,
-                'description' => 'Top of the line quality. Is it worth the price? Hell nah.',
+                'description' => 'Top of the line quality. Is it worth the price? Yes.',
                 'categories' => [4],
                 'images' => ['103375_original_local_1200x1050_v3_converted.webp'],
             ],
@@ -207,14 +207,41 @@ class DatabaseSeeder extends Seeder
             }
 
             foreach ($images as $image) {
-                try {
-                    $product->addMedia('resources/images/seed/' . $image)
-                        ->preservingOriginal()
-                        ->toMediaCollection('images');
-                } catch (FileDoesNotExist|FileIsTooBig|CouldNotLoadImage $e) {
-                    Log::error($e);
+                    $basePath = 'resources/images/seed/';
+                    $fullPath = $basePath . $image;
+                    $filename = pathinfo($image, PATHINFO_FILENAME);
+                    $formats = ['avif', 'webp', 'png', 'jpg'];
+                    $loaded = false;
+
+                    // Original first
+                    if (file_exists($fullPath)) {
+                        try {
+                            $product->addMedia($fullPath)->preservingOriginal()->toMediaCollection('images');
+                            $loaded = true;
+                        } catch (FileDoesNotExist|FileIsTooBig|CouldNotLoadImage $e) {}
+                    }
+
+                    // Try fallback
+                    if (!$loaded) {
+                        foreach ($formats as $format) {
+                            $imagePath = $basePath.$filename. '.' .$format;
+                            
+                            if (!file_exists($imagePath)) {
+                                continue;
+                            }
+                            try {
+                                $product->addMedia($imagePath)->preservingOriginal()->toMediaCollection('images');
+                                $loaded = true;
+                                break;
+                            } catch (FileDoesNotExist|FileIsTooBig|CouldNotLoadImage $e) {
+                                continue;
+                            }
+                        }
+                    }
+                    if (!$loaded) {
+                        Log::error("No supported image format found for: ".$image);
+                    }
                 }
-            }
         }
 
         (new DeliverySeeder)->run();
