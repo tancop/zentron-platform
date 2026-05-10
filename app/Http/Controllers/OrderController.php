@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function show(Order $order): View
     {
-        $order->load('deliveryType');
+        $order->load(['deliveryType', 'products']);
         return view('order', compact('order'));
     }
 
