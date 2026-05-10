@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
+use Spatie\Image\Exceptions\CouldNotLoadImage;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
@@ -210,7 +211,7 @@ class DatabaseSeeder extends Seeder
                     $product->addMedia('resources/images/seed/' . $image)
                         ->preservingOriginal()
                         ->toMediaCollection('images');
-                } catch (FileDoesNotExist|FileIsTooBig $e) {
+                } catch (FileDoesNotExist|FileIsTooBig|CouldNotLoadImage $e) {
                     Log::error($e);
                 }
             }
