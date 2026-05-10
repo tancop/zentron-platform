@@ -27,13 +27,22 @@ class Order extends Model
                 $request->session()->put("orderId", $order->id);
             } else {
                 $order = Order::find($orderId);
-                // prevent order from expiring too early
-                $order->touch();
+                if ($order->status !== OrderStatus::InCart) {
+                    $order = new Order;
+                    $order->status = OrderStatus::InCart;
+                    $order->total_amount = 0;
+                    $order->save();
+
+                    $request->session()->put("orderId", $order->id);
+                } else {
+                    // prevent early expire
+                    $order->touch();
+                }
             }
         } else {
             $user = auth()->user();
             $order = $user->currentOrder;
-            if ($order == null) {
+            if ($order == null || $order->status !== OrderStatus::InCart) {
                 $order = new Order;
                 $order->status = OrderStatus::InCart;
                 $order->total_amount = 0;
