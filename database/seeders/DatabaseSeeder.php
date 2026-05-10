@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'PC'],
             ['name' => 'Controllers'],
             ['name' => 'Software'],
+            ['name' => 'Miscelaneous'],
         ];
         foreach ($categories as $category) {
             $category['created_at'] = now();
@@ -61,6 +62,24 @@ class DatabaseSeeder extends Seeder
         }
 
         $products = [
+            [
+                'name' => 'Retro Lava Lamp Set',
+                'price' => '24.99',
+                'color' => 'Multi',
+                'brand_id' => 7,
+                'description' => 'A pair of retro lava lamps to add ambient lighting and a vintage vibe to any desk or shelf.',
+                'categories' => [8],
+                'images' => ['lavaLamps.jpg'],
+            ],
+            [
+                'name' => 'Gaming PC Build - Storm',
+                'price' => '1299.99',
+                'color' => 'Black',
+                'brand_id' => 5,
+                'description' => 'Preconfigured performance rig with the latest GPU and cooling for high-frame-rate gaming.',
+                'categories' => [3,5],
+                'images' => ['gamingPCai.jpg'],
+            ],
             [
                 'name' => 'PlayStation 5 - White',
                 'price' => '499.99',
