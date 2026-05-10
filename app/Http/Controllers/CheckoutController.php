@@ -77,6 +77,9 @@ class CheckoutController extends Controller
             // current order is complete, clear it out
             $user->current_order_id = null;
             $user->save();
+        } else {
+            // clear guest order from session
+            $request->session()->forget('orderId');
         }
 
         return redirect(route('checkout.complete'));
