@@ -22,7 +22,9 @@ class CheckoutSummary extends Component
      */
     public function render(): View|Closure|string
     {
-        $deliveryPrice = $this->order->deliveryType?->price ?? 0;
+        $deliveryPrice = $this->order->total_amount > 0
+            ? ($this->order->deliveryType?->price ?? 0)
+            : 0;
         $total = $this->order->total_amount + $deliveryPrice;
 
         return view('components.checkout-summary', compact('deliveryPrice', 'total'));

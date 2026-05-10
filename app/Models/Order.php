@@ -106,6 +106,10 @@ class Order extends Model
     public function totalPrice(): float
     {
         $this->load('deliveryType');
+        if ($this->total_amount <= 0) {
+            return 0;
+        }
+
         return $this->total_amount + ($this->deliveryType?->price ?? 0);
     }
 

@@ -16,6 +16,10 @@ function fmt(n: number): string {
 document.addEventListener('DOMContentLoaded', () => {
   if (!subtotalEl||!deliveryEl||!totalEl) return;
 
+  const subtotalNode = subtotalEl;
+  const deliveryNode = deliveryEl;
+  const totalNode = totalEl;
+
   const radios = document.querySelectorAll<HTMLInputElement>('input[name="delivery-method"]');
   if ((!radios)||(radios.length === 0)) return;
 
@@ -29,10 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function update() {
     const checked = Array.from(radios).find(r => r.checked);
-    const delivery = checked? getDelivery(checked) : 0;
-    const subtotal = toNumber(subtotalEl.textContent || '0');
-    deliveryEl.textContent = fmt(delivery);
-    totalEl.textContent = fmt(subtotal + delivery);
+    const subtotal = toNumber(subtotalNode.textContent || '0');
+    const delivery = subtotal > 0 && checked ? getDelivery(checked) : 0;
+    deliveryNode.textContent = fmt(delivery);
+    totalNode.textContent = fmt(subtotal + delivery);
   }
 
   radios.forEach(r => r.addEventListener('change', update));
