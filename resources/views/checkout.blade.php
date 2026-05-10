@@ -5,6 +5,7 @@
     @vite('resources/css/style.css')
     @vite('resources/css/form.css')
     @vite('resources/css/checkout.css')
+    @vite('resources/js/checkout.ts')
 </head>
 
 <body class="checkout-page">
@@ -131,6 +132,7 @@
                                     type="radio"
                                     name="delivery-method"
                                     value="{{ $option->id }}"
+                                    data-price="{{ $option->price }}"
                                     @checked((string) $selectedDeliveryMethod === (string) $option->id)
                                 />
                                 <span>{{ $option->name }}</span>

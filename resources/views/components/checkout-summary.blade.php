@@ -2,14 +2,14 @@
     <h2>Order summary</h2>
 
     <p class="price-row">
-        <span>Subtotal</span><span>{{ $order->total_amount }} €</span>
+        <span>Subtotal</span><span id="subtotal-price">{{ $order->total_amount }} €</span>
     </p>
     <p class="price-row">
-        <span>Delivery</span><span>{{ $deliveryPrice }} €</span>
+        <span>Delivery</span><span id="delivery-price">{{ $deliveryPrice }} €</span>
     </p>
 
     <p class="price-row total-price">
-        <span>Total:</span><span>{{ $total }} €</span>
+        <span>Total:</span><span id="total-price">{{ $total }} €</span>
     </p>
 
     <button type="submit" class="checkout-link">
