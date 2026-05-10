@@ -32,6 +32,7 @@ class UpdateCheckoutDetailsRequest extends FormRequest
             'email' => 'required|string',
             'phone-number' => 'nullable|string',
             'delivery-method' => 'required|integer|exists:DeliveryType,id',
+            'terms' => 'accepted',
         ];
     }
 }

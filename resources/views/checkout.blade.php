@@ -143,7 +143,14 @@
 
                     <div class="checkbox-row">
                         <div>
-                            <input id="terms" type="checkbox" checked/>
+                            <input
+                                id="terms"
+                                name="terms"
+                                type="checkbox"
+                                value="1"
+                                @checked(old('terms'))
+                                required
+                            />
                             <label for="terms">Terms of Service</label>
                         </div>
                         <div>
