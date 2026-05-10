@@ -97,11 +97,16 @@ class ProductController extends Controller
             return back()->withErrors(['images' => $imageValidation['message']]);
         }
 
+        $categories = $this->getCheckedCategories($request);
+        if (count($categories) === 0) {
+            return back()->withInput()->withErrors([
+                'categories' => 'Select at least one category.',
+            ]);
+        }
+
         $validated = $request->safe()->except(['images']);
 
         $product = Product::create($validated);
-
-        $categories = $this->getCheckedCategories($request);
         $product->categories()->sync($categories);
 
         if ($request->hasFile('images')) {

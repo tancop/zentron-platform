@@ -124,6 +124,9 @@
 
         <section>
             <h2>Categories</h2>
+            @error('categories')
+            <p class="field-error">{{ $message }}</p>
+            @enderror
             <div class="tags">
                 @if ($create)
 
